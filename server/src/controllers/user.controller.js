@@ -5,34 +5,56 @@ const userGet = (request, response) => {
 };
 
 const userPost = (request, response) => {
-  
-  const userName = request.body.userName;
-  const firstName = request.body.firstName;
-  const lastName = request.body.lastName;
-  const country = request.body.country;
-  const company = request.body.company;
-  const occupation = request.body.occupation;
-  const email = request.body.email;
 
-  const person = new User({
-    userName: userName,
-    firstName: firstName,
-    lastName: lastName,
-    country: country,
-    company: company,
-    occupation: occupation,
-    email: email,
-  });
+    const person = new User(getPerson(request.body))
 
-  if (userName && firstName && lastName && email && country && company && occupation) {
+    if(isValidPerson(person)) {
     person
-      .save()
-      .then((person) => response.json(`${person.firstName} is now a user`))
-      .catch((error) => response.json(error));
-  } else {
-    response.json("ERROR: please enter all properties");
-  }
-};
+        .save()
+        .then((person) => response.json(`${person.firstName} is now a user`))
+        .catch((error) => response.json(error));
+    }
+    else {
+        response.json({error: 'all properties are required'})
+    }
+  };
+
+function getPerson(personSchema) {
+
+    const { 
+        userName, 
+        firstName, 
+        lastName, 
+        country,    
+        company,
+        occupation, 
+        email 
+    } = personSchema
+    
+    return {
+        userName: userName,
+        firstName: firstName,
+        lastName: lastName,
+        country: country,
+        company: company,
+        occupation: occupation,
+        email: email,
+    }
+    
+}
+
+function isValidPerson(person) {
+    return (
+        person.userName &&
+        person.firstName && 
+        person.lastName &&
+        person.country &&
+        person.company &&
+        person.occupation &&
+        person.email
+        ) 
+}
+
 
 const userFind = (request, response) => {
   const userId = request.params.userId;
@@ -43,32 +65,31 @@ const userFind = (request, response) => {
 
 const userUpdate = (request, response) => {
 
-    const userName = request.body.userName;
-    const firstName = request.body.firstName;
-    const lastName = request.body.lastName;
-    const country = request.body.country;
-    const company = request.body.company;
-    const occupation = request.body.occupation;
-    const email = request.body.email;
     const userId = request.params.userId;
 
     User.find({ _id: userId })
-      .update({
-        userName: userName,
-        firstName: firstName,
-        lastName: lastName,
-        country: country,
-        company: company,
-        occupation: occupation,
-        email: email,
-      })
+      .update(selectPersonProps(request.body))
       .then((person) => response.json(person))
       .catch(() => response.json("User not updated"));
   };
 
+function selectPersonProps(personSchema) {
+
+    const person = getPerson(personSchema)
+
+    Object.keys(person).forEach(key => {
+            if (person[key] === undefined) {
+                delete person[key];
+            }
+        })
+
+    return person
+    
+}
+
   const userDelete = (request, response) => {
     const userId = request.params.userId ;
-    User.findOneAndDelete({ _Id: userId  }).then((person) =>
+    User.findOneAndDelete({ _id: userId  }).then((person) =>
       response.json(`${person.userName} was removed from db.`)
     );
   };

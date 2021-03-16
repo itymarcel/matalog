@@ -5,20 +5,10 @@ const supplierGet = (request, response) => {
 };
 
 const supplierPost = (request, response) => {
-  
-  const name = request.body.name;
-  const address = request.body.address;
-  const phone = request.body.phone;
-  const website = request.body.website;
 
-  const company = new Supplier({
-    name: name,
-    address: address,
-    phone: phone,
-    website: website
-  });
+  const company = new Supplier(getCompany(request.body));
 
-  if (name && address && phone && website) {
+  if (isValidCompany(company)) {
     company
       .save()
       .then((company) => response.json(`${company.name} is now a supplier`))
@@ -27,6 +17,31 @@ const supplierPost = (request, response) => {
     response.json("ERROR: please enter all properties");
   }
 };
+
+function getCompany(companySchema) {
+    const { 
+        name, 
+        address, 
+        phone,  
+        website
+    } = companySchema
+
+    return {
+        name: name,
+        address: address,
+        phone: phone,
+        website: website
+    }
+}
+
+function isValidCompany(company) {
+    return (
+        company.name && 
+        company.address && 
+        company.phone && 
+        company.website
+    )
+}
 
 const supplierFind = (request, response) => {
   const supplierId = request.params.supplierId;
@@ -37,26 +52,31 @@ const supplierFind = (request, response) => {
 
 const supplierUpdate = (request, response) => {
 
-    const name = request.body.name;
-    const address = request.body.address;
-    const phone = request.body.phone;
-    const website = request.body.website;
     const supplierId = request.params.supplierId;
 
     Supplier.find({ _id: supplierId })
-      .update({
-        name: name,
-        address: address,
-        phone: phone,
-        website: website
-      })
+      .update(selectCompanyProps(request.body))
       .then((company) => response.json(company))
       .catch(() => response.json("Supplier not updated"));
   };
 
+  function selectCompanyProps(companySchema) {
+
+    const company = getCompany(companySchema)
+
+    Object.keys(company).forEach(key => {
+            if (company[key] === undefined) {
+                delete company[key];
+            }
+        })
+
+    return company
+    
+}
+
   const supplierDelete = (request, response) => {
     const supplierId = request.params.supplierId ;
-    Supplier.findOneAndDelete({ _Id: supplierId  }).then((company) =>
+    Supplier.findOneAndDelete({ _id: supplierId  }).then((company) =>
       response.json(`${company.name} was removed from db.`)
     );
   };

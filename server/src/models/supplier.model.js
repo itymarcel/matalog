@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const supplierSchema = { 
     name: String,
     address: String,  
-    phone: Number,
+    phone: String,
     website: String 
 };
 const Supplier = mongoose.model("Supplier", supplierSchema);
