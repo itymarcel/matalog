@@ -27,17 +27,21 @@ export default function IntroTable() {
 const StyledTable = styled.table`
     grid-row-start: 3;
     margin-top: 2rem;
+    border-spacing: 0px 30px;
+    border-collapse: separate;
 
     tr {
-        padding-top: 1rem;
-        border-top: 2px solid black;
-        background: red;
+        position: relative;
+        td {
+            border-top: 1px solid black;
+        }
     }
     
     th {
         width: 40%;
         text-align: left;
         vertical-align: text-top;
+        border-top: 1px solid black;
     }    
 
     
