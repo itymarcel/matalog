@@ -27,22 +27,21 @@ export default function IntroTable() {
 const StyledTable = styled.table`
     grid-row-start: 3;
     margin-top: 2rem;
-    border-spacing: 0px 30px;
+    border-spacing: 0 0;
     border-collapse: separate;
-
-    tr {
-        position: relative;
-        td {
-            border-top: 1px solid black;
-        }
-    }
     
     th {
+        padding: 1rem 0;
         width: 40%;
         text-align: left;
         vertical-align: text-top;
-        border-top: 1px solid black;
+        border-top: 0.063rem solid #E3E3E3;
     }    
+
+    td {
+        padding: 1rem 0;
+        border-top: 0.063rem solid #E3E3E3;
+    }
 
     
 `
