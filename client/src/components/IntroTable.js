@@ -20,6 +20,27 @@ export default function IntroTable() {
                 <th>Additional Keywords</th>
                 <td>Lava</td>
             </tr>
+            <tr>
+                <th>Format</th>
+                <td>rectangular block</td>
+            </tr>
+            <tr>
+                <th>Producer</th>
+                <td>Stonward - Aberdeenshire, UK</td>
+            </tr>
+            <tr>
+                <th>Suppliers</th>
+                <td>
+                    <ul>
+                        <li>Tennants Elgin - Morayshire, UK</li>
+                        <li>Tennants Elgin - Morayshire, UK</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <th>Variations</th>
+                <td>–</td>
+            </tr>
         </StyledTable>
     )
 }
@@ -27,21 +48,9 @@ export default function IntroTable() {
 const StyledTable = styled.table`
     grid-row-start: 3;
     margin-top: 2rem;
-    border-spacing: 0 0;
-    border-collapse: separate;
     
-    th {
-        padding: 1rem 0;
+    th{
         width: 40%;
-        text-align: left;
-        vertical-align: text-top;
-        border-top: 0.063rem solid #E3E3E3;
-    }    
-
-    td {
-        padding: 1rem 0;
-        border-top: 0.063rem solid #E3E3E3;
     }
-
     
 `

@@ -28,11 +28,33 @@ export default createGlobalStyle`
         margin: 0;
     }
 
+    h2 {
+        font-size: 2rem;
+        font-weight: 400;
+        margin: 0;
+    }
+
     p {
         font-size: 1rem;
         font-weight: 400;
         line-height: 1.438rem;
     }
 
-    
+    table {
+        border-spacing: 0 0;
+        border-collapse: separate;
+    }
+
+    th {
+        font-weight: 600;
+        padding: 1rem 0;
+        text-align: left;
+        vertical-align: text-top;
+        border-top: 0.063rem solid #E3E3E3;
+    }    
+
+    td {
+        padding: 1rem 0;
+        border-top: 0.063rem solid #E3E3E3;
+    }
     `
