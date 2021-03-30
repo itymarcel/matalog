@@ -1,9 +1,11 @@
-
+import Header from "./components/Header";
+import DetailPage from "./pages/DetailPage"
 
 function App() {
   return (
     <div className="App">
-     <h1>hello</h1>
+     <Header />
+     <DetailPage/>
     </div>
   );
 }
