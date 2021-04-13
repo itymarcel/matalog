@@ -9,7 +9,7 @@ import Circularity from '../components/Circularity'
 
 export default function DetailPage() {
     return (
-    <>
+    <StyledDetailPage>
         <DetailHeader />
         <Wrapper>
             <Intro/>
@@ -19,12 +19,15 @@ export default function DetailPage() {
             <TechnicalData/>
             <Circularity/>
         </Wrapper>
-    </>
+    </StyledDetailPage>
     )
 }
 
-const Wrapper = styled.main`
+const StyledDetailPage = styled.section`
+    grid-row-start: 2;
+`
 
+const Wrapper = styled.main`
     display: grid;
     grid-template-columns: 1fr 1fr;
     column-gap: 1.25rem;
